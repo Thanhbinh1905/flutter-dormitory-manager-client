@@ -26,12 +26,12 @@ class Student {
   factory Student.fromJson(Map<String, dynamic> json) {
     return Student(
       id: json['id'],
-      studentCode: json['student_id'],
-      fullName: json['full_name'],
+      studentCode: json['studentCode'],
+      fullName: json['fullname'],
       gender: json['gender'],
       birthDate: json['birthdate'],
       email: json['email'],
-      roomNumber: json['room_number'],
+      roomNumber: json['roomNum'],
       phoneNumber: json['phone_number'],
       address: json['address'],
       avatarUrl: json['avatar_url'],

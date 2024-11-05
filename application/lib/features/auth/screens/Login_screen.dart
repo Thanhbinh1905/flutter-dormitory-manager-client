@@ -66,6 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           : () async {
                               if (_formKey.currentState!.validate()) {
                                 try {
+                                  // print(_studentIdController.text);
                                   await authProvider.login(
                                     _studentIdController.text,
                                     _passwordController.text,

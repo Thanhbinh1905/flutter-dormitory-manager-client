@@ -6,13 +6,14 @@ class AuthRepository {
 
   AuthRepository(this._apiService);
 
-  Future<Student> login(String studentId, String password) async {
+  Future<Student> login(String studentCode, String password) async {
     try {
-      final response = await _apiService.post('/auth/login', data: {
-        'student_id': studentId,
+      final response = await _apiService.post('/auth/student/login', data: {
+        'studentCode': studentCode,
         'password': password,
       });
-
+      print("response");
+      print(response);
       return Student.fromJson(response.data['user']);
     } catch (e) {
       rethrow;

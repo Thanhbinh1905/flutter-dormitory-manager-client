@@ -7,7 +7,7 @@ class ApiService {
 
   ApiService(this._prefs) {
     _dio = Dio(BaseOptions(
-      baseUrl: 'https://localhost:3001',
+      baseUrl: 'http://localhost:3001/api',
       connectTimeout: const Duration(seconds: 5),
       receiveTimeout: const Duration(seconds: 3),
     ));
