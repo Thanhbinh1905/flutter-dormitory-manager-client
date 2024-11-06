@@ -2,54 +2,68 @@ class Student {
   final String id;
   final String studentCode;
   final String fullName;
-  final String gender;
-  final DateTime birthDate;
+  final String? gender;
+  final DateTime? birthDate;
   final String email;
-  final String roomNumber;
-  final String phoneNumber;
-  final String address;
+  final String? roomNumber;
+  final String? phoneNumber;
+  final String? address;
   final String? avatarUrl;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
 
   Student({
     required this.id,
     required this.studentCode,
     required this.fullName,
     required this.email,
-    required this.gender,
-    required this.birthDate,
-    required this.roomNumber,
-    required this.phoneNumber,
-    required this.address,
-    required this.avatarUrl,
+    this.gender,
+    this.birthDate,
+    this.roomNumber,
+    this.phoneNumber,
+    this.address,
+    this.avatarUrl,
+    this.createdAt,
+    this.updatedAt,
   });
 
   factory Student.fromJson(Map<String, dynamic> json) {
     return Student(
-      id: json['id'],
-      studentCode: json['studentCode'],
-      fullName: json['fullname'],
-      gender: json['gender'],
-      birthDate: json['birthdate'],
-      email: json['email'],
-      roomNumber: json['roomNum'],
-      phoneNumber: json['phone_number'],
-      address: json['address'],
-      avatarUrl: json['avatar_url'],
+      id: json['StudentID'] as String,
+      studentCode: json['StudentCode'] as String,
+      fullName: json['FullName'] as String,
+      gender: json['Gender'] as String?,
+      birthDate: json['BirthDate'] != null
+          ? DateTime.tryParse(json['BirthDate'] as String)
+          : null,
+      email: json['Email'] as String,
+      roomNumber: json['RoomNumber'] as String?,
+      phoneNumber: json['PhoneNumber'] as String?,
+      address: json['Address'] as String?,
+      avatarUrl: json['Avatar'] as String?,
+      createdAt: json['CreatedAt'] != null
+          ? DateTime.tryParse(json['CreatedAt'] as String)
+          : null,
+      updatedAt: json['UpdatedAt'] != null
+          ? DateTime.tryParse(json['UpdatedAt'] as String)
+          : null,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
-      'student_id': studentCode,
-      'full_name': fullName,
-      'gender': gender,
-      'birthdate': birthDate,
-      'email': email,
-      'room_number': roomNumber,
-      'phone_number': phoneNumber,
-      'address': address,
-      'avatar_url': avatarUrl,
+      'StudentID': id,
+      'StudentCode': studentCode,
+      'FullName': fullName,
+      'Gender': gender,
+      'BirthDate': birthDate?.toIso8601String(),
+      'Email': email,
+      'RoomNumber': roomNumber,
+      'PhoneNumber': phoneNumber,
+      'Address': address,
+      'Avatar': avatarUrl,
+      'CreatedAt': createdAt?.toIso8601String(),
+      'UpdatedAt': updatedAt?.toIso8601String(),
     };
   }
 }

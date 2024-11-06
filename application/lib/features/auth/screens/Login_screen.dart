@@ -75,6 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   Navigator.of(context)
                                       .pushReplacementNamed('/home');
                                 } catch (e) {
+                                  // print(e);
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(

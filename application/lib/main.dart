@@ -6,6 +6,16 @@ import 'data/services/api_service.dart';
 import 'data/repositories/auth_repository.dart';
 import 'features/auth/providers/auth_provider.dart';
 import 'features/auth/screens/login_screen.dart';
+import 'features/home/screens/home_screen.dart';
+import 'features/room/screens/room_info_screen.dart';
+import 'features/room/screens/room_registration_screen.dart';
+import 'features/billing/screens/bills_screen.dart';
+import 'features/issues/screens/issues_screen.dart';
+import 'features/profile/screens/profile_screen.dart';
+import 'features/notification/screens/notification_screen.dart';
+import 'features/settings/screens/settings_screen.dart';
+import 'features/room/providers/room_provider.dart';
+import 'data/repositories/room_repository.dart';
 // Import các screen và provider khác
 
 void main() async {
@@ -33,13 +43,23 @@ class MyApp extends StatelessWidget {
           create: (_) => ApiService(prefs),
         ),
         ProxyProvider<ApiService, AuthRepository>(
-          update: (_, apiService, __) => AuthRepository(apiService),
+          update: (_, apiService, __) => AuthRepository(apiService, prefs),
         ),
         ChangeNotifierProxyProvider<AuthRepository, AuthProvider>(
           create: (context) => AuthProvider(
             context.read<AuthRepository>(),
           ),
           update: (_, authRepository, previous) => previous!,
+        ),
+        Provider(
+          create: (context) => RoomRepository(
+            context.read<ApiService>(),
+          ),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => RoomProvider(
+            context.read<RoomRepository>(),
+          ),
         ),
         // Thêm các provider khác
       ],
@@ -56,11 +76,38 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(
                 builder: (_) => const LoginScreen(),
               );
-            // case '/home':
-            //   return MaterialPageRoute(
-            //     builder: (_) => const HomeScreen(),
-            //   );
-            // Thêm các route khác
+            case '/home':
+              return MaterialPageRoute(
+                builder: (_) => const HomeScreen(),
+              );
+            case '/room-info':
+              return MaterialPageRoute(
+                builder: (_) => const RoomInfoScreen(),
+              );
+            case '/room-registration':
+              return MaterialPageRoute(
+                builder: (_) => const RoomRegistrationScreen(),
+              );
+            case '/bills':
+              return MaterialPageRoute(
+                builder: (_) => const BillsScreen(),
+              );
+            case '/issues':
+              return MaterialPageRoute(
+                builder: (_) => const IssuesScreen(),
+              );
+            case '/profile':
+              return MaterialPageRoute(
+                builder: (_) => const ProfileScreen(),
+              );
+            case '/notifications':
+              return MaterialPageRoute(
+                builder: (_) => const NotificationScreen(),
+              );
+            case '/settings':
+              return MaterialPageRoute(
+                builder: (_) => const SettingsScreen(),
+              );
             default:
               return MaterialPageRoute(
                 builder: (_) => const LoginScreen(),

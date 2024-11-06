@@ -16,9 +16,7 @@ class AuthProvider with ChangeNotifier {
     try {
       _isLoading = true;
       notifyListeners();
-
       _currentUser = await _authRepository.login(studentCode, password);
-
       notifyListeners();
     } catch (e) {
       rethrow;
