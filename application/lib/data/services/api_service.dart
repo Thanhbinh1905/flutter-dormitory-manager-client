@@ -7,7 +7,7 @@ class ApiService {
 
   ApiService(this._prefs) {
     _dio = Dio(BaseOptions(
-      baseUrl: 'http://192.168.1.5:3001/api',
+      baseUrl: 'http://172.17.64.1:3001/api',
       connectTimeout: const Duration(seconds: 5),
       receiveTimeout: const Duration(seconds: 3),
     ));
@@ -34,9 +34,13 @@ class ApiService {
 
   Future<Response> get(String path, {Map<String, dynamic>? params}) async {
     try {
+      print('Request URL: ${_dio.options.baseUrl}$path');
+      print('Request Headers: ${_dio.options.headers}');
+
       final response = await _dio.get(path, queryParameters: params);
       return response;
     } catch (e) {
+      print('API Error: $e');
       rethrow;
     }
   }

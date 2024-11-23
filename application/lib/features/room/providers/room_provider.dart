@@ -44,4 +44,11 @@ class RoomProvider with ChangeNotifier {
       rethrow;
     }
   }
+
+  void reset() {
+    _currentRoom = null;
+    _isLoading = false;
+    _error = null;
+    notifyListeners();
+  }
 }

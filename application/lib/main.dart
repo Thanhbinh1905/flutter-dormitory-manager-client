@@ -16,7 +16,17 @@ import 'features/notification/screens/notification_screen.dart';
 import 'features/settings/screens/settings_screen.dart';
 import 'features/room/providers/room_provider.dart';
 import 'data/repositories/room_repository.dart';
+import 'features/registration/providers/registration_provider.dart';
+import 'features/return/providers/return_provider.dart';
+import 'data/repositories/registration_repository.dart';
+import 'data/repositories/return_repository.dart';
+import 'data/repositories/area_repository.dart';
+import 'features/room/providers/area_provider.dart';
+import 'data/repositories/bill_repository.dart';
+import 'features/billing/providers/bill_provider.dart';
 // Import các screen và provider khác
+
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -61,9 +71,50 @@ class MyApp extends StatelessWidget {
             context.read<RoomRepository>(),
           ),
         ),
+        Provider(
+          create: (context) => RegistrationRepository(
+            context.read<ApiService>(),
+          ),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => RegistrationProvider(
+            context.read<RegistrationRepository>(),
+          ),
+        ),
+        Provider(
+          create: (context) => ReturnRepository(
+            context.read<ApiService>(),
+          ),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ReturnProvider(
+            context.read<ReturnRepository>(),
+          ),
+        ),
+        Provider(
+          create: (context) => AreaRepository(
+            context.read<ApiService>(),
+          ),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => AreaProvider(
+            context.read<AreaRepository>(),
+          ),
+        ),
+        Provider(
+          create: (context) => BillRepository(
+            context.read<ApiService>(),
+          ),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => BillProvider(
+            context.read<BillRepository>(),
+          ),
+        ),
         // Thêm các provider khác
       ],
       child: MaterialApp(
+        navigatorKey: navigatorKey,
         title: 'KTX App',
         theme: ThemeData(
           primarySwatch: Colors.blue,
